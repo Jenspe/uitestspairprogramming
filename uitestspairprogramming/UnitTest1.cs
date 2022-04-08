@@ -12,10 +12,10 @@ namespace uitestspairprogramming
         [TestClass]
         public class UnitTest1
         {
-            private static readonly string DriverDirectory = "C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\Web_drivers";
+        //private static readonly string DriverDirectory = "C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\Web_drivers";
+        private static readonly string DriverDirectory = "C:\\Users\\jens6\\source\\repos\\chromedriver";
 
-
-            private static IWebDriver _driver;
+        private static IWebDriver _driver;
 
             [ClassInitialize]
             public static void Setup(TestContext context)
@@ -34,24 +34,22 @@ namespace uitestspairprogramming
             [TestMethod]
             public void TestAddition()
             {
-                //string url = "file:C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\3.SemesteV2\\Programmering\\Vue\\Calculator\\Index.html";
-                string url = "file:C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\3.SemesteV2\\Programmering\\GetPostDelete\\Index.html";
+                string url = "https://pairprogramminghtml.azurewebsites.net/";
 
                 _driver.Navigate().GoToUrl(url);
                 WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-                IWebElement inputElement1 = wait.Until(d => d.FindElement(By.Id("getBookId")));
-                inputElement1.SendKeys("2");
-
-
-
-                IWebElement buttonElement = _driver.FindElement(By.Id("getBookIdButton"));
+                IWebElement buttonElement = _driver.FindElement(By.Id("getAllButton"));
                 buttonElement.Click();
 
+                //IWebElement inputElement1 = wait.Until(d => d.FindElement(By.Id("getBookId")));
+                //inputElement1.SendKeys("2");
 
-                IWebElement foundBook = wait.Until(d => d.FindElement(By.Id("foundBookById")));
 
 
-                Assert.IsTrue(foundBook.Text.Contains(""));
+                IWebElement foundRecord = wait.Until(d => d.FindElement(By.Id("RecordsList")));
+
+
+                Assert.IsTrue(foundRecord.Text.Contains("Ben"));
             }
 
 
