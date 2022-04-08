@@ -12,8 +12,8 @@ namespace uitestspairprogramming
         [TestClass]
         public class UnitTest1
         {
-        //private static readonly string DriverDirectory = "C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\Web_drivers";
-        private static readonly string DriverDirectory = "C:\\Users\\jens6\\source\\repos\\chromedriver";
+        private static readonly string DriverDirectory = "C:\\Users\\syv22\\OneDrive\\Dokumenter\\1.Datamatiker_ting\\Web_drivers";
+        //private static readonly string DriverDirectory = "C:\\Users\\jens6\\source\\repos\\chromedriver";
 
         private static IWebDriver _driver;
 
@@ -30,29 +30,48 @@ namespace uitestspairprogramming
             {
                 _driver.Dispose();
             }
+            string url = "https://pairprogramminghtml.azurewebsites.net/";
 
-            [TestMethod]
-            public void TestAddition()
-            {
-                string url = "https://pairprogramminghtml.azurewebsites.net/";
+        [TestMethod]
+        public void TestGetAll()
+        {
 
-                _driver.Navigate().GoToUrl(url);
-                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-                IWebElement buttonElement = _driver.FindElement(By.Id("getAllButton"));
-                buttonElement.Click();
+            _driver.Navigate().GoToUrl(url);
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement buttonElement = _driver.FindElement(By.Id("getAllButton"));
+            buttonElement.Click();
 
-                //IWebElement inputElement1 = wait.Until(d => d.FindElement(By.Id("getBookId")));
-                //inputElement1.SendKeys("2");
-
-
-
-                IWebElement foundRecord = wait.Until(d => d.FindElement(By.Id("RecordsList")));
+            //IWebElement inputElement1 = wait.Until(d => d.FindElement(By.Id("getBookId")));
+            //inputElement1.SendKeys("2");
 
 
-                Assert.IsTrue(foundRecord.Text.Contains("Ben"));
-            }
+
+            IWebElement foundRecord = wait.Until(d => d.FindElement(By.Id("Recordslist")));
 
 
+            Assert.IsTrue(foundRecord.Text.Contains("Ben"));
         }
-    
+        [TestMethod]
+        public void TestGetById()
+        {
+
+            _driver.Navigate().GoToUrl(url);
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement inputElement1 = wait.Until(d => d.FindElement(By.Id("GetByIdInput")));
+            inputElement1.SendKeys("1");
+            IWebElement buttonElement = _driver.FindElement(By.Id("GetByIdButton"));
+            buttonElement.Click();
+
+
+            IWebElement foundRecord = wait.Until(d => d.FindElement(By.Id("FoundRecord")));
+
+
+            Assert.IsTrue(foundRecord.Text.Contains("John"));
+        }
+
+
+    }
+
 }
+    
+
